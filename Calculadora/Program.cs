@@ -10,7 +10,7 @@
             // var number1 = Convert.ToInt32(inputArgs[0]);
             // var number2 = Convert.ToInt32(inputArgs[1]);
 
-            calculaSoma(10, 10);
+            calculaSoma(10, 20);
         }
 
         private static void calculaSoma(int number1, int number2)
