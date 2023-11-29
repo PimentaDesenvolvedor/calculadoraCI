@@ -7,22 +7,23 @@ on:
     branches: 
       - main
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  pipeline:
+    runs-on: self-hosted
     steps:
       - name: Checkout Repository
       - uses: actions/checkout@v4
-
+        with:
+          # Obter todo os histórico da branch não apenas da ultima review
+          fetch-depth: 0
+          # Não mantém cache de credenciais padrões necessário para setar tags em repos com branchs protegidas.
+          persist-credentials: false   
       - name: Setup dotnet
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
-      
       - name: Restore Dependencies
         run: dotnet restore
-
       - name: Build Application
         run: dotnet build --configuration Release
-
       - name: Run Tests
         run: dotnet test --configuration Release --no-build --verbosity normal
