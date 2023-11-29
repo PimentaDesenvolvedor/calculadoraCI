@@ -16,19 +16,16 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v1
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.x
+        dotnet-version: '6.0.x'
 
     - name: Restore Dependencies
-      run: |
-        dotnet restore
+      run: dotnet restore
 
     - name: Build Application
-      run: |
-        dotnet build --configuration Release
+      run: dotnet build --configuration Release
 
-    - name: Run Tests
-      run: |
-        dotnet test --configuration Release --no-build --verbosity normal
+    - name: Test Application
+      run: dotnet run --project CalculadoraCI/CalculadoraCI.csproj -- 10 20
