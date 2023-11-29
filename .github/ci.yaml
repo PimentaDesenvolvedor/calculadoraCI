@@ -2,24 +2,32 @@ name: Build and Test .NET 6 Application
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   pull_request:
-    branches:
-      - main
+    branches: [ "main" ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-
-    - name: Setup dotnet
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+# Install the .NET Core workload
+    - name: Install .NET Core
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: 6.0.x
+
+    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2   
+
+    # Execute all unit tests in the solution
+    - name: Execute unit tests
+      run: dotnet test           
 
     - name: Restore Dependencies
       run: dotnet restore
