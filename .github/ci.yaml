@@ -8,32 +8,20 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
-
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout
     - uses: actions/checkout@v3
+    - name: Checkout
       with:
         fetch-depth: 0
 # Install the .NET Core workload
-    - name: Install .NET Core
     - uses: actions/setup-dotnet@v3
+    - name: Install .NET Core
       with:
         dotnet-version: 6.0.x
-
-    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild.exe
-    - uses: microsoft/setup-msbuild@v1.0.2
-
-    # Execute all unit tests in the solution
-    # - name: Execute unit tests
-    #   run: dotnet test           
-
     - name: Restore Dependencies
       run: dotnet restore
-
     - name: Build Application
       run: dotnet build --configuration Release
-
     - name: Test Application
       run: dotnet run --project CalculadoraCI/CalculadoraCI.csproj -- 10 20
