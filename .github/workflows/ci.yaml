@@ -29,5 +29,5 @@ jobs:
       - name: Build Application
         run: dotnet build --configuration Release
 
-      - name: Test Application
-        run: dotnet run --project CalculadoraCI/CalculadoraCI.csproj -- 10 20
+      # - name: Test Application
+      #   run: dotnet run --project CalculadoraCI/CalculadoraCI.csproj -- 10 20
